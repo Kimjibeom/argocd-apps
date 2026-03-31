@@ -34,7 +34,7 @@ core:
   quotaUpdateProvider: db
   replicas: 1
   revisionHistoryLimit: 10
-  secret: ""
+  secret: "Xmw5aec2FymGmOH2"
   secretName: ""
   serviceAccountName: ""
   serviceAnnotations: {}
@@ -45,7 +45,7 @@ core:
   tokenKey: ""
   tolerations: []
   topologySpreadConstraints: []
-  xsrfKey: ""
+  xsrfKey: "qA6pDlQnsUTJGBZX4xYgxngRx06DSf8c"
 database:
   external:
     coreDatabase: registry
@@ -219,7 +219,7 @@ jobservice:
     max_update_hours: 24
   replicas: 1
   revisionHistoryLimit: 10
-  secret: ""
+  secret: "4YqHD9b16WF92c49"
   serviceAccountName: ""
   tolerations: []
   topologySpreadConstraints: null
@@ -398,7 +398,7 @@ registry:
       tag: v2.14.1
   credentials:
     existingSecret: ""
-    htpasswdString: ""
+    htpasswdString: "harbor_registry_user:$2a$10$n8W1YRwQ0bqdvI7Et/.Rb.0ocTZf3kEsf2yx46Vd1nerYmwr/QAxe"
     password: harbor_registry_password
     username: harbor_registry_user
   existingSecret: ""
@@ -425,7 +425,7 @@ registry:
   relativeurls: false
   replicas: 1
   revisionHistoryLimit: 10
-  secret: ""
+  secret: "ejH8bOPid41vVlsE"
   serviceAccountName: ""
   tolerations: []
   topologySpreadConstraints: []
