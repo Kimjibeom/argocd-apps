@@ -1,0 +1,725 @@
+apiVersions: []
+broker:
+  affinity: {}
+  args: []
+  automountServiceAccountToken: false
+  autoscaling:
+    hpa:
+      annotations: {}
+      enabled: false
+      maxReplicas: ""
+      minReplicas: ""
+      targetCPU: ""
+      targetMemory: ""
+    vpa:
+      annotations: {}
+      controlledResources: []
+      enabled: false
+      maxAllowed: {}
+      minAllowed: {}
+      updatePolicy:
+        updateMode: Auto
+  command: []
+  config: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    enabled: true
+    readOnlyRootFilesystem: true
+    runAsGroup: 1001
+    runAsNonRoot: true
+    runAsUser: 1001
+    seLinuxOptions: {}
+  customLivenessProbe: {}
+  customReadinessProbe: {}
+  customStartupProbe: {}
+  enableServiceLinks: true
+  existingConfigmap: ""
+  existingSecretConfig: ""
+  extraContainerPorts: []
+  extraEnvVars: []
+  extraEnvVarsCM: ""
+  extraEnvVarsSecret: ""
+  extraVolumeMounts: []
+  extraVolumes: []
+  heapOpts: -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75
+  hostAliases: []
+  hostIPC: false
+  hostNetwork: false
+  initContainers: []
+  lifecycleHooks: {}
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  logPersistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enabled: false
+    existingClaim: ""
+    mountPath: /opt/bitnami/kafka/logs
+    selector: {}
+    size: 8Gi
+    storageClass: ""
+  minId: 100
+  minReadySeconds: 0
+  nodeAffinityPreset:
+    key: ""
+    type: ""
+    values: []
+  nodeSelector: {}
+  overrideConfiguration: {}
+  pdb:
+    create: true
+    maxUnavailable: ""
+    minAvailable: ""
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enabled: true
+    existingClaim: ""
+    labels: {}
+    mountPath: /bitnami/kafka
+    selector: {}
+    size: 8Gi
+    storageClass: ceph-block
+  persistentVolumeClaimRetentionPolicy:
+    enabled: false
+    whenDeleted: Retain
+    whenScaled: Retain
+  podAffinityPreset: ""
+  podAnnotations: {}
+  podAntiAffinityPreset: soft
+  podLabels: {}
+  podManagementPolicy: Parallel
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+    fsGroupChangePolicy: Always
+    seccompProfile:
+      type: RuntimeDefault
+    supplementalGroups: []
+    sysctls: []
+  priorityClassName: ""
+  readinessProbe:
+    enabled: true
+    failureThreshold: 6
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  replicaCount: 0
+  resources: {}
+  resourcesPreset: small
+  runtimeClassName: ""
+  schedulerName: ""
+  secretConfig: ""
+  sidecars: []
+  startupProbe:
+    enabled: false
+    failureThreshold: 15
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  terminationGracePeriodSeconds: ""
+  tolerations: []
+  topologyKey: ""
+  topologySpreadConstraints: []
+  updateStrategy:
+    type: RollingUpdate
+brokerRackAwareness:
+  azureApiVersion: "2023-11-15"
+  cloudProvider: ""
+  enabled: false
+clusterDomain: cluster.local
+clusterId: ""
+commonAnnotations: {}
+commonLabels: {}
+config: {}
+controller:
+  affinity: {}
+  args: []
+  automountServiceAccountToken: false
+  autoscaling:
+    hpa:
+      annotations: {}
+      enabled: false
+      maxReplicas: ""
+      minReplicas: ""
+      targetCPU: ""
+      targetMemory: ""
+    vpa:
+      annotations: {}
+      controlledResources: []
+      enabled: false
+      maxAllowed: {}
+      minAllowed: {}
+      updatePolicy:
+        updateMode: Auto
+  command: []
+  config: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    enabled: true
+    readOnlyRootFilesystem: true
+    runAsGroup: 1001
+    runAsNonRoot: true
+    runAsUser: 1001
+    seLinuxOptions: {}
+  controllerOnly: false
+  customLivenessProbe: {}
+  customReadinessProbe: {}
+  customStartupProbe: {}
+  enableServiceLinks: true
+  existingConfigmap: ""
+  existingSecretConfig: ""
+  extraContainerPorts: []
+  extraEnvVars: []
+  extraEnvVarsCM: ""
+  extraEnvVarsSecret: ""
+  extraVolumeMounts: []
+  extraVolumes: []
+  heapOpts: -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75
+  hostAliases: []
+  hostIPC: false
+  hostNetwork: false
+  initContainers: []
+  lifecycleHooks: {}
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  logPersistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enabled: false
+    existingClaim: ""
+    mountPath: /opt/bitnami/kafka/logs
+    selector: {}
+    size: 8Gi
+    storageClass: ""
+  minId: 0
+  minReadySeconds: 0
+  nodeAffinityPreset:
+    key: ""
+    type: ""
+    values: []
+  nodeSelector: {}
+  overrideConfiguration: {}
+  pdb:
+    create: true
+    maxUnavailable: ""
+    minAvailable: ""
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enabled: true
+    existingClaim: ""
+    labels: {}
+    mountPath: /bitnami/kafka
+    selector: {}
+    size: 8Gi
+    storageClass: ceph-block
+  persistentVolumeClaimRetentionPolicy:
+    enabled: false
+    whenDeleted: Retain
+    whenScaled: Retain
+  podAffinityPreset: ""
+  podAnnotations: {}
+  podAntiAffinityPreset: soft
+  podLabels: {}
+  podManagementPolicy: Parallel
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+    fsGroupChangePolicy: Always
+    seccompProfile:
+      type: RuntimeDefault
+    supplementalGroups: []
+    sysctls: []
+  priorityClassName: ""
+  quorumBootstrapServers: ""
+  readinessProbe:
+    enabled: true
+    failureThreshold: 6
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  replicaCount: 3
+  resources: {}
+  resourcesPreset: small
+  runtimeClassName: ""
+  schedulerName: ""
+  secretConfig: ""
+  sidecars: []
+  startupProbe:
+    enabled: false
+    failureThreshold: 15
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  terminationGracePeriodSeconds: ""
+  tolerations: []
+  topologyKey: ""
+  topologySpreadConstraints: []
+  updateStrategy:
+    type: RollingUpdate
+defaultInitContainers:
+  autoDiscovery:
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        add: []
+        drop:
+        - ALL
+      enabled: true
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsGroup: 1001
+      runAsNonRoot: true
+      runAsUser: 1001
+      seLinuxOptions: {}
+      seccompProfile:
+        type: RuntimeDefault
+    enabled: false
+    image:
+      digest: ""
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      registry: docker.io
+      repository: bitnamilegacy/kubectl
+      tag: 1.33.4-debian-12-r0
+    resources: {}
+    resourcesPreset: nano
+  prepareConfig:
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        add: []
+        drop:
+        - ALL
+      enabled: true
+      privileged: false
+      readOnlyRootFilesystem: true
+      runAsGroup: 1001
+      runAsNonRoot: true
+      runAsUser: 1001
+      seLinuxOptions: {}
+      seccompProfile:
+        type: RuntimeDefault
+    extraInit: ""
+    resources: {}
+    resourcesPreset: nano
+  volumePermissions:
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        add: []
+        drop:
+        - ALL
+      enabled: true
+      privileged: false
+      runAsUser: 0
+      seLinuxOptions: {}
+      seccompProfile:
+        type: RuntimeDefault
+    enabled: false
+    image:
+      digest: ""
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      registry: docker.io
+      repository: bitnamilegacy/os-shell
+      tag: 12-debian-12-r51
+    resources: {}
+    resourcesPreset: nano
+diagnosticMode:
+  args:
+  - infinity
+  command:
+  - sleep
+  enabled: false
+dnsConfig: {}
+dnsPolicy: ""
+existingConfigmap: ""
+existingKraftSecret: ""
+existingLog4j2ConfigMap: ""
+existingSecretConfig: ""
+externalAccess:
+  broker:
+    service:
+      allocateLoadBalancerNodePorts: true
+      annotations: {}
+      domain: ""
+      externalIPs: []
+      extraPorts: []
+      ipFamilies: []
+      ipFamilyPolicy: ""
+      labels: {}
+      loadBalancerAnnotations: []
+      loadBalancerClass: ""
+      loadBalancerIPs: []
+      loadBalancerNames: []
+      loadBalancerSourceRanges: []
+      nodePorts: []
+      ports:
+        external: 9094
+      publishNotReadyAddresses: false
+      type: LoadBalancer
+      useHostIPs: false
+      usePodIPs: false
+  controller:
+    forceExpose: false
+    service:
+      allocateLoadBalancerNodePorts: true
+      annotations: {}
+      domain: ""
+      externalIPs: []
+      extraPorts: []
+      ipFamilies: []
+      ipFamilyPolicy: ""
+      labels: {}
+      loadBalancerAnnotations: []
+      loadBalancerClass: ""
+      loadBalancerIPs: []
+      loadBalancerNames: []
+      loadBalancerSourceRanges: []
+      nodePorts: []
+      ports:
+        external: 9094
+      publishNotReadyAddresses: false
+      type: LoadBalancer
+      useHostIPs: false
+      usePodIPs: false
+  enabled: false
+extraDeploy: []
+extraEnvVars: []
+extraEnvVarsCM: ""
+extraEnvVarsSecret: ""
+extraVolumeMounts: []
+extraVolumes: []
+fullnameOverride: ""
+global:
+  compatibility:
+    openshift:
+      adaptSecurityContext: auto
+  defaultStorageClass: ceph-block
+  imagePullSecrets: []
+  imageRegistry: ""
+  security:
+    allowInsecureImages: false
+heapOpts: -XX:InitialRAMPercentage=75 -XX:MaxRAMPercentage=75
+image:
+  debug: false
+  digest: ""
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+  registry: docker.io
+  repository: bitnamilegacy/kafka
+  tag: 4.0.0-debian-12-r10
+initContainers: []
+interBrokerProtocolVersion: ""
+kraftVersion: 1
+kubeVersion: ""
+listeners:
+  advertisedListeners: ""
+  client:
+    containerPort: 9092
+    name: CLIENT
+    protocol: SASL_PLAINTEXT
+    sslClientAuth: ""
+  controller:
+    containerPort: 9093
+    name: CONTROLLER
+    protocol: SASL_PLAINTEXT
+    sslClientAuth: ""
+  external:
+    containerPort: 9095
+    name: EXTERNAL
+    protocol: SASL_PLAINTEXT
+    sslClientAuth: ""
+  extraListeners: []
+  interbroker:
+    containerPort: 9094
+    name: INTERNAL
+    protocol: SASL_PLAINTEXT
+    sslClientAuth: ""
+  overrideListeners: ""
+  securityProtocolMap: ""
+log4j2: ""
+metrics:
+  jmx:
+    config: |-
+      jmxUrl: service:jmx:rmi:///jndi/rmi://127.0.0.1:{{ .Values.metrics.jmx.kafkaJmxPort }}/jmxrmi
+      lowercaseOutputName: true
+      lowercaseOutputLabelNames: true
+      ssl: false
+      {{- if .Values.metrics.jmx.whitelistObjectNames }}
+      whitelistObjectNames: ["{{ join "\",\"" .Values.metrics.jmx.whitelistObjectNames }}"]
+      {{- end }}
+    containerPorts:
+      metrics: 5556
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      enabled: true
+      readOnlyRootFilesystem: true
+      runAsGroup: 1001
+      runAsNonRoot: true
+      runAsUser: 1001
+      seLinuxOptions: {}
+    enabled: true
+    existingConfigmap: ""
+    extraRules: ""
+    image:
+      digest: ""
+      pullPolicy: IfNotPresent
+      pullSecrets: []
+      registry: docker.io
+      repository: bitnamilegacy/jmx-exporter
+      tag: 1.4.0-debian-12-r0
+    kafkaJmxPort: 5555
+    livenessProbe:
+      enabled: true
+      failureThreshold: 3
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+    readinessProbe:
+      enabled: true
+      failureThreshold: 3
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+    resources: {}
+    resourcesPreset: micro
+    service:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: '{{ .Values.metrics.jmx.service.ports.metrics }}'
+        prometheus.io/scrape: "true"
+      clusterIP: ""
+      ipFamilies: []
+      ipFamilyPolicy: ""
+      ports:
+        metrics: 5556
+      sessionAffinity: None
+    whitelistObjectNames:
+    - kafka.controller:*
+    - kafka.server:*
+    - java.lang:*
+    - kafka.network:*
+    - kafka.log:*
+  prometheusRule:
+    enabled: false
+    groups: []
+    labels: {}
+    namespace: ""
+  serviceMonitor:
+    enabled: true
+    honorLabels: false
+    interval: ""
+    jobLabel: ""
+    labels:
+      release: prometheus-stack
+    metricRelabelings: []
+    namespace: ""
+    path: /metrics
+    relabelings: []
+    scrapeTimeout: ""
+    selector: {}
+nameOverride: ""
+namespaceOverride: ""
+networkPolicy:
+  addExternalClientAccess: true
+  allowExternal: true
+  allowExternalEgress: true
+  enabled: true
+  extraEgress: []
+  extraIngress: []
+  ingressNSMatchLabels: {}
+  ingressNSPodMatchLabels: {}
+  ingressPodMatchLabels: {}
+overrideConfiguration: {}
+provisioning:
+  args: []
+  auth:
+    tls:
+      caCert: ca.crt
+      cert: tls.crt
+      certificatesSecret: ""
+      key: tls.key
+      keyPassword: ""
+      keyPasswordSecretKey: key-password
+      keystore: keystore.jks
+      keystorePassword: ""
+      keystorePasswordSecretKey: keystore-password
+      passwordsSecret: ""
+      truststore: truststore.jks
+      truststorePassword: ""
+      truststorePasswordSecretKey: truststore-password
+      type: jks
+  automountServiceAccountToken: false
+  command: []
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    enabled: true
+    readOnlyRootFilesystem: true
+    runAsGroup: 1001
+    runAsNonRoot: true
+    runAsUser: 1001
+    seLinuxOptions: {}
+  enableServiceLinks: true
+  enabled: false
+  extraEnvVars: []
+  extraEnvVarsCM: ""
+  extraEnvVarsSecret: ""
+  extraProvisioningCommands: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  initContainers: []
+  nodeSelector: {}
+  numPartitions: 1
+  parallel: 1
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+    fsGroupChangePolicy: Always
+    seccompProfile:
+      type: RuntimeDefault
+    supplementalGroups: []
+    sysctls: []
+  postScript: ""
+  preScript: ""
+  replicationFactor: 1
+  resources: {}
+  resourcesPreset: micro
+  schedulerName: ""
+  serviceAccount:
+    automountServiceAccountToken: false
+    create: true
+    name: ""
+  sidecars: []
+  tolerations: []
+  topics: []
+  useHelmHooks: true
+  waitForKafka: true
+rbac:
+  create: false
+sasl:
+  client:
+    passwords: ""
+    users:
+    - user1
+  controller:
+    clientId: controller_broker_client
+    clientSecret: ""
+    password: ""
+    user: controller_user
+  controllerMechanism: PLAIN
+  enabledMechanisms: PLAIN,SCRAM-SHA-256,SCRAM-SHA-512
+  existingSecret: ""
+  interBrokerMechanism: PLAIN
+  interbroker:
+    clientId: inter_broker_client
+    clientSecret: ""
+    password: ""
+    user: inter_broker_user
+  oauthbearer:
+    expectedAudience: ""
+    jwksEndpointUrl: ""
+    subClaimName: sub
+    tokenEndpointUrl: ""
+secretConfig: ""
+service:
+  allocateLoadBalancerNodePorts: true
+  annotations: {}
+  clusterIP: ""
+  externalTrafficPolicy: Cluster
+  extraPorts: []
+  headless:
+    broker:
+      annotations: {}
+      labels: {}
+    controller:
+      annotations: {}
+      labels: {}
+    ipFamilies: []
+    ipFamilyPolicy: ""
+  loadBalancerClass: ""
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  nodePorts:
+    client: ""
+    external: ""
+  ports:
+    client: 9092
+    controller: 9093
+    external: 9095
+    interbroker: 9094
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: false
+  create: true
+  name: ""
+serviceBindings:
+  enabled: false
+sidecars: []
+tls:
+  autoGenerated:
+    certManager:
+      duration: 2160h
+      existingIssuer: ""
+      existingIssuerKind: ""
+      keyAlgorithm: RSA
+      keySize: 2048
+      renewBefore: 360h
+    customAltNames: []
+    enabled: true
+    engine: helm
+  endpointIdentificationAlgorithm: https
+  existingSecret: ""
+  jksKeystoreKey: ""
+  jksTruststoreKey: ""
+  jksTruststoreSecret: ""
+  keyPassword: ""
+  keystorePassword: ""
+  passwordsSecret: ""
+  passwordsSecretKeystoreKey: keystore-password
+  passwordsSecretPemPasswordKey: ""
+  passwordsSecretTruststoreKey: truststore-password
+  pemChainIncluded: false
+  sslClientAuth: required
+  truststorePassword: ""
+  type: JKS
+usePasswordFiles: true

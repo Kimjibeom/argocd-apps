@@ -1,0 +1,155 @@
+affinity: {}
+auth:
+  allowEmptyRootPassword: ""
+  database: gpu_db
+  enabled: true
+  password: gpu_password
+  rootPassword: root
+  secretKeys:
+    rootPasswordKey: mariadb-root-password
+    userPasswordKey: mariadb-password
+  username: gpu_user
+commonAnnotations: {}
+commonLabels: {}
+config:
+  customConfiguration: ""
+  existingConfigMap: ""
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 999
+extraConfigs: []
+extraEnvVars: []
+extraObjects: []
+extraSecrets: []
+extraVolumes: []
+fullnameOverride: ""
+galera:
+  bootstrap:
+    enabled: true
+  enabled: false
+  forceSafeToBootstrap: false
+  innodb:
+    bufferPoolSize: 128M
+    flushLogAtTrxCommit: 0
+  name: galera
+  recovery:
+    clusterBootstrap: true
+    enabled: true
+  replicaCount: 3
+  sst:
+    existingSecret: ""
+    password: ""
+    secretKeys:
+      passwordKey: sst-password
+      userKey: sst-user
+    user: ""
+  wsrepAutoIncrementControl: true
+  wsrepCertifyNonPK: true
+  wsrepDebug: false
+  wsrepDrupalHack: false
+  wsrepLogConflicts: false
+  wsrepMaxWsRows: 0
+  wsrepMaxWsSize: "1073741824"
+  wsrepMethod: mariabackup
+  wsrepProvider: /usr/lib/galera/libgalera_smm.so
+  wsrepRetryAutocommit: 1
+  wsrepSlaveThreads: 1
+global:
+  imagePullSecrets: []
+  imageRegistry: ""
+image:
+  imagePullPolicy: Always
+  registry: docker.io
+  repository: mariadb
+  tag: 12.0.2@sha256:607835cd628b78e2876f6a586d0ec37b296c47683b31ef750002d3d17d3d8f7a
+ingress:
+  annotations:
+    kubernetes.io/hostname: mariadb.local
+  className: ""
+  enabled: false
+  hosts:
+  - host: mariadb.local
+    paths:
+    - path: /
+      pathType: Prefix
+  tls: []
+initdbScriptsConfigMap: ""
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+metrics:
+  enabled: true
+  image:
+    registry: quay.io
+    repository: prometheus/mysqld-exporter
+    tag: v0.16.0
+  password: r2v9oUI4q3CGZFqko8yak1sFrChEFScI
+  serviceMonitor:
+    enabled: true
+    interval: 30s
+    labels:
+      release: prometheus-stack
+    scrapeTimeout: 10s
+nameOverride: ""
+networkPolicy:
+  allowExternal: true
+  enabled: false
+  ingressNSMatchLabels: {}
+  ingressNSPodMatchLabels: {}
+nodeSelector: {}
+persistence:
+  accessModes:
+  - ReadWriteOnce
+  annotations: {}
+  enabled: true
+  selector: {}
+  size: 10Gi
+  storageClass: ceph-block
+podAnnotations: {}
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: ""
+  minAvailable: 1
+podLabels:
+  app.kubernetes.io/component: primary
+podSecurityContext:
+  fsGroup: 999
+readinessProbe:
+  enabled: true
+  failureThreshold: 3
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 300Mi
+service:
+  annotations: {}
+  clusterIP: ""
+  nodePort: ""
+  port: 3306
+  type: ClusterIP
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: false
+  create: false
+  name: ""
+startupProbe:
+  enabled: false
+  failureThreshold: 15
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+tolerations: []

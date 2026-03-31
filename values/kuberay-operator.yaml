@@ -1,0 +1,53 @@
+batchScheduler:
+  enabled: false
+  name: ""
+crNamespacedRbacEnable: true
+env: null
+featureGates:
+- enabled: false
+  name: RayClusterStatusConditions
+fullnameOverride: kuberay-operator
+image:
+  pullPolicy: IfNotPresent
+  repository: quay.io/kuberay/operator
+  tag: v1.2.2
+leaderElectionEnabled: true
+livenessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 10
+  periodSeconds: 5
+logging:
+  baseDir: ""
+  fileEncoder: ""
+  fileName: ""
+  stdoutEncoder: ""
+nameOverride: kuberay-operator
+podSecurityContext: {}
+rbacEnable: true
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 10
+  periodSeconds: 5
+resources:
+  limits:
+    cpu: 200m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 512Mi
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+service:
+  port: 8080
+  type: ClusterIP
+serviceAccount:
+  create: true
+  name: kuberay-operator
+singleNamespaceInstall: false

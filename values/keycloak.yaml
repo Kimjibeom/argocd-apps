@@ -1,0 +1,211 @@
+affinity: {}
+cache:
+  configFile: ""
+  stack: local
+commonAnnotations: {}
+commonLabels: {}
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+database:
+  existingSecret: ""
+  host: ""
+  jdbcParams: ""
+  name: keycloak
+  password: ""
+  port: ""
+  schema: ""
+  secretKeys:
+    passwordKey: db-password
+    usernameKey: db-username
+  type: postgres
+  urlProperties: ""
+  username: keycloak
+extraEnvVars: []
+extraEnvVarsSecret: ""
+extraInitContainers: []
+extraObjects: []
+extraVolumeMounts: []
+extraVolumes: []
+features:
+  disabled: []
+  enabled: []
+fullnameOverride: ""
+global:
+  imagePullSecrets: []
+  imageRegistry: ""
+image:
+  command: /opt/keycloak/bin/kc.sh
+  imagePullPolicy: Always
+  registry: docker.io
+  repository: keycloak/keycloak
+  tag: 26.4.5@sha256:653852bfdea2be6e958b9e90a976eff1c6de34edd55f2f679bdc48ef16bc528e
+ingress:
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  className: traefik
+  enabled: true
+  hosts:
+  - host: keycloak.gpu.com
+    paths:
+    - path: /
+      pathType: Prefix
+  tls:
+  - hosts:
+    - keycloak.gpu.com
+initContainers:
+  waitForMariadb:
+    image: mariadb:12.0.2@sha256:03a03a6817bb9eaa21e5aed1b734d432ec3f80021f5a2de1795475f158217545
+  waitForPostgres:
+    image: postgres:17.6@sha256:e6a4209d1a4893f2df3bdcde58f8926c3c929c4d51df90990ed1b36d83c1382a
+keycloak:
+  adminPassword: admin
+  adminUser: admin
+  existingSecret: ""
+  extraArgs: []
+  hostname: keycloak.gpu.com
+  hostnameAdmin: ""
+  hostnameBackchannel: ""
+  hostnameStrict: false
+  httpEnabled: true
+  httpPort: 8080
+  httpRelativePath: /
+  httpsPort: 8443
+  production: true
+  proxyHeaders: xforwarded
+  proxyProtocolEnabled: false
+  proxyTrustedAddresses: ""
+  secretKeys:
+    adminPasswordKey: admin-password
+livenessProbe:
+  enabled: true
+  failureThreshold: 3
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  successThreshold: 1
+  timeoutSeconds: 5
+mariadb:
+  auth:
+    database: keycloak
+    password: ""
+    rootPassword: ""
+    username: ""
+  enabled: false
+metrics:
+  enabled: false
+  service:
+    annotations: {}
+    labels: {}
+    port: 9000
+    targetPort: http-metrics
+    type: ClusterIP
+  serviceMonitor:
+    additionalLabels: {}
+    annotations: {}
+    enabled: false
+    honorLabels: false
+    interval: 30s
+    jobLabel: ""
+    metricRelabelings: []
+    namespace: ""
+    relabelings: []
+    scrapeTimeout: ""
+nameOverride: ""
+nodeSelector: {}
+persistence:
+  accessModes:
+  - ReadWriteOnce
+  annotations: {}
+  enabled: true
+  existingClaim: ""
+  size: 2Gi
+  storageClass: ceph-block
+podAnnotations: {}
+podLabels: {}
+podSecurityContext:
+  fsGroup: 1001
+postgres:
+  auth:
+    database: keycloak
+    password: postgres_password
+    username: keycloak
+  enabled: true
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    enabled: true
+    size: 5Gi
+    storageClass: ceph-block
+readinessProbe:
+  enabled: true
+  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+realm:
+  configFile: ""
+  import: false
+replicaCount: 1
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 200m
+    memory: 512Mi
+service:
+  annotations: {}
+  httpPort: 8080
+  httpTargetPort: 8080
+  httpsPort: 8443
+  httpsTargetPort: 8443
+  trafficDistribution: ""
+  type: ClusterIP
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: false
+  create: false
+  name: ""
+startupProbe:
+  enabled: true
+  failureThreshold: 60
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+tls:
+  certManager:
+    annotations: {}
+    commonName: ""
+    dnsNames: []
+    duration: ""
+    enabled: false
+    ipAddresses: []
+    issuerRef:
+      group: cert-manager.io
+      kind: ClusterIssuer
+      name: ""
+    renewBefore: ""
+    secretName: ""
+    usages:
+    - digital signature
+    - key encipherment
+  certificateFile: /opt/keycloak/certs/tls.crt
+  certificateKeyFile: /opt/keycloak/certs/tls.key
+  enabled: false
+  existingSecret: ""
+  truststoreEnabled: false
+  truststoreExistingSecret: ""
+  truststoreExistingSecretKey: truststore.jks
+  truststoreFile: /opt/keycloak/truststore/truststore.jks
+  truststorePassword: ""
+tolerations: []
+topologySpreadConstraints: []

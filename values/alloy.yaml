@@ -1,0 +1,333 @@
+alloy:
+  clustering:
+    enabled: false
+    name: ""
+    portName: http
+  configMap:
+    content: |
+      // [1] 파드 자동 발견 (Service Discovery)
+      discovery.kubernetes "k8s_pods" {
+        role = "pod"
+      }
+
+      // [2] 메타데이터 가공 (Relabeling)
+      // 파드 정보를 로그 라벨(namespace, pod, container 등)로 변환
+      discovery.relabel "k8s_pods_logs" {
+        targets = discovery.kubernetes.k8s_pods.targets
+
+        rule {
+          source_labels = ["__meta_kubernetes_namespace"]
+          action = "replace"
+          target_label = "namespace"
+        }
+        rule {
+          source_labels = ["__meta_kubernetes_pod_name"]
+          action = "replace"
+          target_label = "pod"
+        }
+        rule {
+          source_labels = ["__meta_kubernetes_pod_container_name"]
+          action = "replace"
+          target_label = "container"
+        }
+        rule {
+          source_labels = ["__meta_kubernetes_namespace", "__meta_kubernetes_pod_name"]
+          separator = "/"
+          action = "replace"
+          target_label = "job"
+        }
+        // DaemonSet은 자기 노드의 로그만 수집해야 하므로 node 라벨 필터링에 사용됨
+        rule {
+          source_labels = ["__meta_kubernetes_pod_node_name"]
+          action = "replace"
+          target_label = "node"
+        }
+      }
+
+      // [3] 로그 수집 (Log Source)
+      // 발견된 타겟에서 실제 로그 파일을 읽어들입니다.
+      loki.source.kubernetes "pod_logs" {
+        targets    = discovery.relabel.k8s_pods_logs.output
+        forward_to = [loki.write.default.receiver]
+      }
+
+      // [4] Loki로 전송 (Output)
+      // 수집된 로그를 Loki Gateway로 발송합니다.
+      loki.write "default" {
+        endpoint {
+          // [중요] Loki Gateway 내부 서비스 주소 (loki 네임스페이스)
+          url = "http://loki-gateway.loki.svc:80/loki/api/v1/push"
+        }
+      }
+    create: true
+    key: null
+    name: null
+  enableHttpServerPort: true
+  enableReporting: true
+  envFrom: []
+  extraArgs: []
+  extraEnv: []
+  extraPorts: []
+  hostAliases: []
+  initialDelaySeconds: 10
+  lifecycle: {}
+  listenAddr: 0.0.0.0
+  listenPort: 12345
+  listenScheme: HTTP
+  livenessProbe: {}
+  mounts:
+    dockercontainers: true
+    extra: []
+    varlog: true
+  resources: {}
+  securityContext: {}
+  stabilityLevel: generally-available
+  storagePath: /tmp/alloy
+  timeoutSeconds: 1
+  uiPathPrefix: /
+configReloader:
+  customArgs: []
+  enabled: true
+  image:
+    digest: ""
+    registry: quay.io
+    repository: prometheus-operator/prometheus-config-reloader
+    tag: v0.81.0
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+  securityContext: {}
+controller:
+  affinity: {}
+  autoscaling:
+    enabled: false
+    horizontal:
+      enabled: false
+      maxReplicas: 5
+      minReplicas: 1
+      scaleDown:
+        policies: []
+        selectPolicy: Max
+        stabilizationWindowSeconds: 300
+      scaleUp:
+        policies: []
+        selectPolicy: Max
+        stabilizationWindowSeconds: 0
+      targetCPUUtilizationPercentage: 0
+      targetMemoryUtilizationPercentage: 80
+    maxReplicas: 5
+    minReplicas: 1
+    scaleDown:
+      policies: []
+      selectPolicy: Max
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      policies: []
+      selectPolicy: Max
+      stabilizationWindowSeconds: 0
+    targetCPUUtilizationPercentage: 0
+    targetMemoryUtilizationPercentage: 80
+    vertical:
+      enabled: false
+      recommenders: []
+      resourcePolicy:
+        containerPolicies:
+        - containerName: alloy
+          controlledResources:
+          - cpu
+          - memory
+          controlledValues: RequestsAndLimits
+          maxAllowed: {}
+          minAllowed: {}
+      updatePolicy: null
+  dnsPolicy: ClusterFirst
+  enableStatefulSetAutoDeletePVC: false
+  extraAnnotations: {}
+  extraContainers: []
+  extraLabels: {}
+  hostNetwork: false
+  hostPID: false
+  initContainers: []
+  minReadySeconds: 10
+  nodeSelector: {}
+  parallelRollout: true
+  podAnnotations: {}
+  podDisruptionBudget:
+    enabled: false
+    maxUnavailable: null
+    minAvailable: null
+  podLabels: {}
+  priorityClassName: ""
+  replicas: 1
+  terminationGracePeriodSeconds: null
+  tolerations: []
+  topologySpreadConstraints: []
+  type: daemonset
+  updateStrategy: {}
+  volumeClaimTemplates: []
+  volumes:
+    extra: []
+crds:
+  create: true
+extraObjects: []
+fullnameOverride: null
+global:
+  image:
+    pullSecrets: []
+    registry: ""
+  podSecurityContext: {}
+image:
+  digest: null
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+  registry: docker.io
+  repository: grafana/alloy
+  tag: null
+ingress:
+  annotations: {}
+  enabled: false
+  extraPaths: []
+  faroPort: 12347
+  hosts:
+  - chart-example.local
+  labels: {}
+  path: /
+  pathType: Prefix
+  tls: []
+nameOverride: null
+namespaceOverride: null
+networkPolicy:
+  egress:
+  - {}
+  enabled: false
+  flavor: kubernetes
+  ingress:
+  - {}
+  policyTypes:
+  - Ingress
+  - Egress
+rbac:
+  clusterRules:
+  - apiGroups:
+    - ""
+    resources:
+    - nodes
+    - nodes/proxy
+    - nodes/metrics
+    verbs:
+    - get
+    - list
+    - watch
+  - nonResourceURLs:
+    - /metrics
+    verbs:
+    - get
+  create: true
+  namespaces: []
+  rules:
+  - apiGroups:
+    - ""
+    - discovery.k8s.io
+    - networking.k8s.io
+    resources:
+    - endpoints
+    - endpointslices
+    - ingresses
+    - pods
+    - services
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    - pods/log
+    - namespaces
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - monitoring.grafana.com
+    resources:
+    - podlogs
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - monitoring.coreos.com
+    resources:
+    - prometheusrules
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - monitoring.coreos.com
+    resources:
+    - alertmanagerconfigs
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - monitoring.coreos.com
+    resources:
+    - podmonitors
+    - servicemonitors
+    - probes
+    - scrapeconfigs
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - events
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - ""
+    resources:
+    - configmaps
+    - secrets
+    verbs:
+    - get
+    - list
+    - watch
+  - apiGroups:
+    - apps
+    - extensions
+    resources:
+    - replicasets
+    verbs:
+    - get
+    - list
+    - watch
+service:
+  annotations: {}
+  clusterIP: ""
+  enabled: true
+  internalTrafficPolicy: Cluster
+  nodePort: 31128
+  type: ClusterIP
+serviceAccount:
+  additionalLabels: {}
+  annotations: {}
+  automountServiceAccountToken: true
+  create: true
+  name: null
+serviceMonitor:
+  additionalLabels: {}
+  enabled: false
+  interval: ""
+  metricRelabelings: []
+  relabelings: []
+  tlsConfig: {}

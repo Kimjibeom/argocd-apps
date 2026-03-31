@@ -1,0 +1,54 @@
+configs:
+  cm:
+    admin.enabled: true
+  params:
+    server.insecure: "true"
+controller:
+  resources:
+    limits:
+      cpu: 2
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+global:
+  domain: argocd.gpu.com
+redis:
+  enabled: true
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+repoServer:
+  resources:
+    limits:
+      cpu: 2
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+server:
+  extraArgs:
+  - --insecure
+  ingress:
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      traefik.ingress.kubernetes.io/service.serversscheme: http
+    enabled: true
+    hosts:
+    - argocd.gpu.com
+    ingressClassName: traefik
+    pathType: Prefix
+    paths:
+    - /
+  resources:
+    limits:
+      cpu: 1
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 512Mi

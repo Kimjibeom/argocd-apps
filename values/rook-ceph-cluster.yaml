@@ -1,0 +1,297 @@
+cephBlockPools:
+- name: ceph-blockpool
+  spec:
+    failureDomain: host
+    replicated:
+      size: 3
+  storageClass:
+    allowVolumeExpansion: true
+    allowedTopologies: []
+    annotations: {}
+    enabled: true
+    isDefault: true
+    labels: {}
+    mountOptions: []
+    name: ceph-block
+    parameters:
+      csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+      csi.storage.k8s.io/controller-expand-secret-namespace: '{{ .Release.Namespace
+        }}'
+      csi.storage.k8s.io/controller-publish-secret-name: rook-csi-rbd-provisioner
+      csi.storage.k8s.io/controller-publish-secret-namespace: '{{ .Release.Namespace
+        }}'
+      csi.storage.k8s.io/fstype: ext4
+      csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+      csi.storage.k8s.io/node-stage-secret-namespace: '{{ .Release.Namespace }}'
+      csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+      csi.storage.k8s.io/provisioner-secret-namespace: '{{ .Release.Namespace }}'
+      imageFeatures: layering
+      imageFormat: "2"
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
+cephBlockPoolsVolumeSnapshotClass:
+  annotations: {}
+  deletionPolicy: Delete
+  enabled: false
+  isDefault: false
+  labels: {}
+  name: ceph-block
+  parameters: {}
+cephClusterSpec:
+  cephVersion:
+    allowUnsupported: false
+    image: quay.io/ceph/ceph:v19.2.3
+  cleanupPolicy:
+    allowUninstallWithVolumes: false
+    confirmation: ""
+    sanitizeDisks:
+      dataSource: zero
+      iteration: 1
+      method: quick
+  continueUpgradeAfterChecksEvenIfNotHealthy: false
+  crashCollector:
+    disable: false
+  dashboard:
+    enabled: true
+    ssl: false
+  dataDirHostPath: /var/lib/rook
+  disruptionManagement:
+    managePodBudgets: true
+    osdMaintenanceTimeout: 30
+  healthCheck:
+    daemonHealth:
+      mon:
+        disabled: false
+        interval: 45s
+      osd:
+        disabled: false
+        interval: 60s
+      status:
+        disabled: false
+        interval: 60s
+    livenessProbe:
+      mgr:
+        disabled: false
+      mon:
+        disabled: false
+      osd:
+        disabled: false
+  logCollector:
+    enabled: true
+    maxLogSize: 500M
+    periodicity: daily
+  mgr:
+    allowMultiplePerNode: false
+    count: 2
+    modules: null
+  mon:
+    allowMultiplePerNode: false
+    count: 3
+  network:
+    connections:
+      compression:
+        enabled: false
+      encryption:
+        enabled: false
+      requireMsgr2: false
+  priorityClassNames:
+    mgr: system-cluster-critical
+    mon: system-node-critical
+    osd: system-node-critical
+  removeOSDsIfOutAndSafeToRemove: false
+  resources:
+    cleanup:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 100Mi
+    crashcollector:
+      limits:
+        memory: 60Mi
+      requests:
+        cpu: 100m
+        memory: 60Mi
+    exporter:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 50Mi
+    logcollector:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    mgr:
+      limits:
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+    mgr-sidecar:
+      limits:
+        memory: 100Mi
+      requests:
+        cpu: 100m
+        memory: 40Mi
+    mon:
+      limits:
+        memory: 2Gi
+      requests:
+        cpu: 1000m
+        memory: 1Gi
+    osd:
+      limits:
+        memory: 4Gi
+      requests:
+        cpu: 1000m
+        memory: 4Gi
+    prepareosd:
+      requests:
+        cpu: 500m
+        memory: 50Mi
+  skipUpgradeChecks: false
+  storage:
+    useAllDevices: true
+    useAllNodes: true
+  upgradeOSDRequiresHealthyPGs: false
+  waitTimeoutForHealthyOSDInMinutes: 10
+cephFileSystemVolumeSnapshotClass:
+  annotations: {}
+  deletionPolicy: Delete
+  enabled: false
+  isDefault: true
+  labels: {}
+  name: ceph-filesystem
+  parameters: {}
+cephFileSystems:
+- name: ceph-filesystem
+  spec:
+    dataPools:
+    - failureDomain: host
+      name: data0
+      replicated:
+        size: 3
+    metadataPool:
+      replicated:
+        size: 3
+    metadataServer:
+      activeCount: 1
+      activeStandby: true
+      priorityClassName: system-cluster-critical
+      resources:
+        limits:
+          memory: 4Gi
+        requests:
+          cpu: 1000m
+          memory: 4Gi
+  storageClass:
+    allowVolumeExpansion: true
+    annotations: {}
+    enabled: true
+    isDefault: false
+    labels: {}
+    mountOptions: []
+    name: ceph-filesystem
+    parameters:
+      csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+      csi.storage.k8s.io/controller-expand-secret-namespace: '{{ .Release.Namespace
+        }}'
+      csi.storage.k8s.io/controller-publish-secret-name: rook-csi-cephfs-provisioner
+      csi.storage.k8s.io/controller-publish-secret-namespace: '{{ .Release.Namespace
+        }}'
+      csi.storage.k8s.io/fstype: ext4
+      csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+      csi.storage.k8s.io/node-stage-secret-namespace: '{{ .Release.Namespace }}'
+      csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+      csi.storage.k8s.io/provisioner-secret-namespace: '{{ .Release.Namespace }}'
+    pool: data0
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
+cephObjectStores:
+- ingress:
+    enabled: false
+  name: ceph-objectstore
+  route:
+    enabled: false
+  spec:
+    dataPool:
+      erasureCoded:
+        codingChunks: 1
+        dataChunks: 2
+      failureDomain: host
+      parameters:
+        bulk: "true"
+    gateway:
+      instances: 1
+      port: 80
+      priorityClassName: system-cluster-critical
+      resources:
+        limits:
+          memory: 2Gi
+        requests:
+          cpu: 1000m
+          memory: 1Gi
+    metadataPool:
+      failureDomain: host
+      replicated:
+        size: 3
+    preservePoolsOnDelete: true
+  storageClass:
+    annotations: {}
+    enabled: true
+    labels: {}
+    name: ceph-bucket
+    parameters:
+      region: us-east-1
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
+clusterName: null
+configOverride: null
+csiDriverNamePrefix: null
+ingress:
+  dashboard:
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+    host:
+      name: ceph.gpu.com
+      path: /
+    ingressClassName: traefik
+kubeVersion: null
+monitoring:
+  createPrometheusRules: true
+  enabled: true
+  metricsDisabled: false
+  prometheusRule:
+    annotations: {}
+    labels:
+      release: prometheus-stack
+  prometheusRuleOverrides: {}
+  rulesNamespaceOverride: null
+operatorNamespace: rook-ceph
+pspEnable: false
+route:
+  dashboard: {}
+toolbox:
+  affinity: {}
+  containerSecurityContext:
+    capabilities:
+      drop:
+      - ALL
+    runAsGroup: 2016
+    runAsNonRoot: true
+    runAsUser: 2016
+  enabled: true
+  image: null
+  labels: {}
+  priorityClassName: null
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  tolerations: []

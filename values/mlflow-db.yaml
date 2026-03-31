@@ -1,0 +1,9 @@
+auth:
+  database: mlflow
+  password: mlflow-password
+  username: mlflow
+primary:
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClass: ceph-block

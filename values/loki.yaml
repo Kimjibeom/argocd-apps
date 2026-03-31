@@ -1,0 +1,2252 @@
+adminApi:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+  dnsConfig: {}
+  env: []
+  extraArgs: {}
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  initContainers: []
+  labels: {}
+  livenessProbe: {}
+  nodeSelector: {}
+  podSecurityContext:
+    runAsGroup: 10001
+    runAsNonRoot: true
+    runAsUser: 10001
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: http-metrics
+    initialDelaySeconds: 45
+  replicas: 1
+  resources: {}
+  service:
+    annotations: {}
+    labels: {}
+  startupProbe: {}
+  strategy:
+    type: RollingUpdate
+  terminationGracePeriodSeconds: 60
+  tolerations: []
+  topologySpreadConstraints: []
+backend:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: backend
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  annotations: {}
+  autoscaling:
+    behavior: {}
+    enabled: false
+    maxReplicas: 6
+    minReplicas: 3
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  nodeSelector: {}
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    dataVolumeParameters:
+      emptyDir: {}
+    enableStatefulSetAutoDeletePVC: true
+    labels: {}
+    selector: null
+    size: 10Gi
+    storageClass: null
+    volumeClaimsEnabled: true
+  podAnnotations: {}
+  podLabels: {}
+  podManagementPolicy: Parallel
+  priorityClassName: null
+  replicas: 3
+  resources: {}
+  selectorLabels: {}
+  service:
+    annotations: {}
+    labels: {}
+    type: ClusterIP
+  targetModule: backend
+  terminationGracePeriodSeconds: 300
+  tolerations: []
+  topologySpreadConstraints: []
+bloomBuilder:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: bloom-builder
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  autoscaling:
+    behavior:
+      enabled: false
+      scaleDown: {}
+      scaleUp: {}
+    customMetrics: []
+    enabled: false
+    maxReplicas: 3
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  command: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  maxUnavailable: null
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  serviceAnnotations: {}
+  serviceLabels: {}
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+bloomGateway:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: bloom-gateway
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  command: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  livenessProbe: {}
+  nodeSelector: {}
+  persistence:
+    annotations: {}
+    claims:
+    - accessModes:
+      - ReadWriteOnce
+      name: data
+      size: 10Gi
+      storageClass: null
+    enableStatefulSetAutoDeletePVC: false
+    enabled: false
+    labels: {}
+    whenDeleted: Retain
+    whenScaled: Retain
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  readinessProbe: {}
+  replicas: 0
+  resources: {}
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: false
+    imagePullSecrets: []
+    name: null
+  serviceAnnotations: {}
+  serviceLabels: {}
+  startupProbe: {}
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+bloomPlanner:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: bloom-planner
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  command: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  livenessProbe: {}
+  nodeSelector: {}
+  persistence:
+    claims:
+    - accessModes:
+      - ReadWriteOnce
+      annotations: {}
+      labels: {}
+      name: data
+      size: 10Gi
+      storageClass: null
+    enableStatefulSetAutoDeletePVC: false
+    enabled: false
+    whenDeleted: Retain
+    whenScaled: Retain
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  readinessProbe: {}
+  replicas: 0
+  resources: {}
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: false
+    imagePullSecrets: []
+    name: null
+  serviceAnnotations: {}
+  serviceLabels: {}
+  startupProbe: {}
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+chunksCache:
+  addresses: dnssrvnoa+_memcached-client._tcp.{{ include "loki.resourceName" (dict
+    "ctx" $ "component" "chunks-cache" "suffix" $.Values.chunksCache.suffix ) }}.{{
+    include "loki.namespace" $ }}.svc.{{ .Values.global.clusterDomain }}
+  affinity: {}
+  allocatedMemory: 8192
+  annotations: {}
+  batchSize: 4
+  connectionLimit: 16384
+  defaultValidity: 0s
+  dnsConfig: {}
+  enabled: true
+  extraArgs: {}
+  extraContainers: []
+  extraExtendedOptions: ""
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  initContainers: []
+  l2:
+    addresses: dnssrvnoa+_memcached-client._tcp.{{ include "loki.resourceName" (dict
+      "ctx" $ "component" "chunks-cache" "suffix" $.Values.chunksCache.l2.suffix )
+      }}.{{ include "loki.namespace" $ }}.svc.{{ .Values.global.clusterDomain }}
+    affinity: {}
+    allocatedMemory: 8192
+    annotations: {}
+    batchSize: 4
+    connectionLimit: 16384
+    defaultValidity: 0s
+    dnsConfig: {}
+    enabled: false
+    extraArgs: {}
+    extraContainers: []
+    extraExtendedOptions: ""
+    extraVolumeMounts: []
+    extraVolumes: []
+    hostUsers: nil
+    initContainers: []
+    l2ChunkCacheHandoff: 345600s
+    maxItemMemory: 5
+    maxUnavailable: 1
+    nodeSelector: {}
+    parallelism: 5
+    persistence:
+      enabled: false
+      labels: {}
+      mountPath: /data
+      storageClass: null
+      storageSize: 10G
+    podAnnotations: {}
+    podLabels: {}
+    podManagementPolicy: Parallel
+    port: 11211
+    priorityClassName: null
+    replicas: 1
+    resources: null
+    service:
+      annotations: {}
+      labels: {}
+    statefulStrategy:
+      type: RollingUpdate
+    suffix: l2
+    terminationGracePeriodSeconds: 60
+    timeout: 2000ms
+    tolerations: []
+    topologySpreadConstraints: []
+    writebackBuffer: 500000
+    writebackParallelism: 1
+    writebackSizeLimit: 500MB
+  maxItemMemory: 5
+  maxUnavailable: 1
+  nodeSelector: {}
+  parallelism: 5
+  persistence:
+    enabled: false
+    labels: {}
+    mountPath: /data
+    storageClass: null
+    storageSize: 10G
+  podAnnotations: {}
+  podLabels: {}
+  podManagementPolicy: Parallel
+  port: 11211
+  priorityClassName: null
+  replicas: 1
+  resources: null
+  service:
+    annotations: {}
+    labels: {}
+  statefulStrategy:
+    type: RollingUpdate
+  suffix: ""
+  terminationGracePeriodSeconds: 60
+  timeout: 2000ms
+  tolerations: []
+  topologySpreadConstraints: []
+  writebackBuffer: 500000
+  writebackParallelism: 1
+  writebackSizeLimit: 500MB
+clusterLabelOverride: null
+compactor:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: compactor
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  command: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  livenessProbe: {}
+  nodeSelector: {}
+  persistence:
+    claims:
+    - accessModes:
+      - ReadWriteOnce
+      annotations: {}
+      labels: {}
+      name: data
+      size: 10Gi
+      storageClass: null
+    enableStatefulSetAutoDeletePVC: false
+    enabled: false
+    whenDeleted: Retain
+    whenScaled: Retain
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  readinessProbe: {}
+  replicas: 0
+  resources: {}
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: false
+    imagePullSecrets: []
+    name: null
+  serviceAnnotations: {}
+  serviceLabels: {}
+  serviceType: ClusterIP
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+deploymentMode: SimpleScalable
+distributor:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: distributor
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  autoscaling:
+    behavior:
+      enabled: false
+      scaleDown: {}
+      scaleUp: {}
+    customMetrics: []
+    enabled: false
+    maxReplicas: 3
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  command: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  maxSurge: 0
+  maxUnavailable: null
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  serviceAnnotations: {}
+  serviceLabels: {}
+  serviceType: ClusterIP
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+  topologySpreadConstraints: []
+  trafficDistribution: ""
+enterprise:
+  adminApi:
+    enabled: true
+  adminToken:
+    secret: null
+  canarySecret: null
+  cluster_name: null
+  config: |
+    {{- if .Values.enterprise.adminApi.enabled }}
+    admin_client:
+      {{ include "enterprise-logs.adminAPIStorageConfig" . | nindent 2 }}
+    {{ end }}
+    auth:
+      type: {{ .Values.enterprise.adminApi.enabled | ternary "enterprise" "trust" }}
+    auth_enabled: {{ .Values.loki.auth_enabled }}
+    cluster_name: {{ include "loki.clusterName" . }}
+    license:
+      path: /etc/loki/license/license.jwt
+  enabled: false
+  externalConfigName: ""
+  externalLicenseName: null
+  gelGateway: true
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: grafana/enterprise-logs
+    tag: 3.5.4
+  license:
+    contents: NOTAVALIDLICENSE
+  provisioner:
+    additionalTenants: []
+    affinity: {}
+    annotations: {}
+    apiUrl: '{{ include "loki.address" . }}'
+    enabled: true
+    env: []
+    extraVolumeMounts: []
+    extraVolumes: []
+    hookType: post-install
+    hostUsers: nil
+    image:
+      digest: null
+      pullPolicy: IfNotPresent
+      registry: us-docker.pkg.dev
+      repository: grafanalabs-global/docker-enterprise-provisioner-prod/enterprise-provisioner
+      tag: latest
+    labels: {}
+    nodeSelector: {}
+    priorityClassName: null
+    provisionedSecretPrefix: null
+    securityContext:
+      fsGroup: 10001
+      runAsGroup: 10001
+      runAsNonRoot: true
+      runAsUser: 10001
+    tolerations: []
+  useExternalLicense: false
+  version: 3.5.4
+enterpriseGateway:
+  affinity: {}
+  annotations: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+  env: []
+  extraArgs: {}
+  extraContainers: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  initContainers: []
+  labels: {}
+  nodeSelector: {}
+  podSecurityContext:
+    fsGroup: 10001
+    runAsGroup: 10001
+    runAsNonRoot: true
+    runAsUser: 10001
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: http-metrics
+    initialDelaySeconds: 45
+  replicas: 0
+  resources: {}
+  service:
+    annotations: {}
+    labels: {}
+    type: ClusterIP
+  strategy:
+    type: RollingUpdate
+  terminationGracePeriodSeconds: 60
+  tolerations: []
+  topologySpreadConstraints: []
+  useDefaultProxyURLs: true
+extraObjects: null
+fullnameOverride: null
+gateway:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: gateway
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  annotations: {}
+  autoscaling:
+    behavior: {}
+    enabled: false
+    maxReplicas: 3
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  basicAuth:
+    enabled: false
+    existingSecret: null
+    htpasswd: |
+      {{- with $tenants := .Values.loki.tenants }}
+        {{- range $t := $tenants }}
+          {{- $username := required "All tenants must have a 'name' set" $t.name }}
+          {{- if $passwordHash := $t.passwordHash }}
+            {{- printf "%s:%s\n" $username $passwordHash }}
+          {{- else if $password := $t.password }}
+            {{- printf "%s\n" (htpasswd $username $password) }}
+          {{- else }}
+            {{- fail "All tenants must have a 'password' or 'passwordHash' set" }}
+          {{- end }}
+        {{- end }}
+      {{- else }}
+        {{- printf "%s\n" (htpasswd (required "'gateway.basicAuth.username' is required" .Values.gateway.basicAuth.username) (required "'gateway.basicAuth.password' is required" .Values.gateway.basicAuth.password)) }}
+      {{- end }}
+    password: null
+    username: null
+  containerPort: 8080
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+  deploymentStrategy:
+    type: RollingUpdate
+  dnsConfig: {}
+  enabled: true
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: nginxinc/nginx-unprivileged
+    tag: 1.29-alpine
+  ingress:
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    enabled: true
+    hosts:
+    - host: loki.gpu.com
+      paths:
+      - path: /
+        pathType: Prefix
+    ingressClassName: traefik
+    labels: {}
+    tls:
+    - hosts:
+      - gateway.loki.example.com
+      secretName: loki-gateway-tls
+  lifecycle: {}
+  livenessProbe: {}
+  nginxConfig:
+    clientMaxBodySize: 4M
+    customBackendUrl: null
+    customReadUrl: null
+    customWriteUrl: null
+    enableIPv6: true
+    file: |
+      {{- include "loki.nginxFile" . -}}
+    httpSnippet: ""
+    locationSnippet: '{{ if .Values.loki.tenants }}proxy_set_header X-Scope-OrgID
+      $remote_user;{{ end }}'
+    logFormat: |-
+      main '$remote_addr - $remote_user [$time_local]  $status '
+              '"$request" $body_bytes_sent "$http_referer" '
+              '"$http_user_agent" "$http_x_forwarded_for"';
+    resolver: 10.233.0.3
+    schema: http
+    serverSnippet: ""
+    ssl: false
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 101
+    runAsGroup: 101
+    runAsNonRoot: true
+    runAsUser: 101
+  priorityClassName: null
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http-metrics
+    initialDelaySeconds: 15
+    timeoutSeconds: 1
+  replicas: 1
+  resources: {}
+  service:
+    annotations: {}
+    clusterIP: null
+    labels: {}
+    loadBalancerIP: null
+    nodePort: null
+    port: 80
+    type: ClusterIP
+  startupProbe: {}
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+  topologySpreadConstraints: []
+  verboseLogging: true
+global:
+  clusterDomain: cluster.local
+  dnsNamespace: kube-system
+  dnsService: kube-dns
+  extraArgs: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    registry: null
+  imageRegistry: null
+  priorityClassName: null
+imagePullSecrets: []
+indexGateway:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: index-gateway
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  joinMemberlist: true
+  lifecycle: {}
+  maxUnavailable: null
+  nodeSelector: {}
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enableStatefulSetAutoDeletePVC: false
+    enabled: false
+    inMemory: false
+    labels: {}
+    size: 10Gi
+    storageClass: null
+    whenDeleted: Retain
+    whenScaled: Retain
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  serviceAnnotations: {}
+  serviceLabels: {}
+  serviceType: ClusterIP
+  terminationGracePeriodSeconds: 300
+  tolerations: []
+  topologySpreadConstraints: []
+  updateStrategy:
+    type: RollingUpdate
+ingester:
+  addIngesterNamePrefix: false
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: ingester
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  autoscaling:
+    behavior:
+      enabled: false
+      scaleDown: {}
+      scaleUp: {}
+    customMetrics: []
+    enabled: false
+    maxReplicas: 3
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  command: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  labels: {}
+  lifecycle: {}
+  livenessProbe: {}
+  maxUnavailable: 1
+  nodeSelector: {}
+  persistence:
+    claims:
+    - accessModes:
+      - ReadWriteOnce
+      name: data
+      size: 10Gi
+      storageClass: null
+    enableStatefulSetAutoDeletePVC: false
+    enabled: false
+    inMemory: false
+    whenDeleted: Retain
+    whenScaled: Retain
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  readinessProbe: {}
+  replicas: 0
+  resources: {}
+  rolloutGroupPrefix: null
+  serviceAnnotations: {}
+  serviceLabels: {}
+  serviceType: ClusterIP
+  terminationGracePeriodSeconds: 300
+  tolerations: []
+  topologySpreadConstraints:
+  - labelSelector:
+      matchLabels:
+        app.kubernetes.io/component: ingester
+        app.kubernetes.io/instance: '{{ .Release.Name }}'
+        app.kubernetes.io/name: '{{ include "loki.name" . }}'
+    maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: ScheduleAnyway
+  updateStrategy:
+    type: RollingUpdate
+  zoneAwareReplication:
+    enabled: true
+    maxUnavailablePct: 33
+    migration:
+      enabled: false
+      excludeDefaultZone: false
+      readPath: false
+      writePath: false
+    zoneA:
+      annotations: {}
+      extraAffinity: {}
+      nodeSelector: null
+      podAnnotations: {}
+    zoneB:
+      annotations: {}
+      extraAffinity: {}
+      nodeSelector: null
+      podAnnotations: {}
+    zoneC:
+      annotations: {}
+      extraAffinity: {}
+      nodeSelector: null
+      podAnnotations: {}
+ingress:
+  annotations: {}
+  enabled: false
+  hosts:
+  - loki.example.com
+  ingressClassName: ""
+  labels: {}
+  paths:
+    compactor:
+    - /loki/api/v1/delete
+    distributor:
+    - /api/prom/push
+    - /loki/api/v1/push
+    - /otlp/v1/logs
+    - /ui
+    queryFrontend:
+    - /api/prom/query
+    - /api/prom/label
+    - /api/prom/series
+    - /api/prom/tail
+    - /loki/api/v1/query
+    - /loki/api/v1/query_range
+    - /loki/api/v1/tail
+    - /loki/api/v1/label
+    - /loki/api/v1/labels
+    - /loki/api/v1/series
+    - /loki/api/v1/index/stats
+    - /loki/api/v1/index/volume
+    - /loki/api/v1/index/volume_range
+    - /loki/api/v1/format_query
+    - /loki/api/v1/detected_field
+    - /loki/api/v1/detected_fields
+    - /loki/api/v1/detected_labels
+    - /loki/api/v1/patterns
+    ruler:
+    - /api/prom/rules
+    - /api/prom/api/v1/rules
+    - /api/prom/api/v1/alerts
+    - /loki/api/v1/rules
+    - /prometheus/api/v1/rules
+    - /prometheus/api/v1/alerts
+  tls: []
+kubeVersionOverride: null
+loki:
+  analytics: {}
+  annotations: {}
+  auth_enabled: false
+  block_builder: {}
+  bloom_build:
+    builder:
+      planner_address: '{{ include "loki.bloomPlannerAddress" . }}'
+    enabled: false
+  bloom_gateway:
+    client:
+      addresses: '{{ include "loki.bloomGatewayAddresses" . }}'
+    enabled: false
+  commonConfig:
+    compactor_grpc_address: '{{ include "loki.compactorAddress" . }}'
+    path_prefix: /var/loki
+    replication_factor: 1
+  compactor: {}
+  compactor_grpc_client: {}
+  config: |
+    {{- if .Values.enterprise.enabled}}
+    {{- tpl .Values.enterprise.config . }}
+    {{- else }}
+    auth_enabled: {{ .Values.loki.auth_enabled }}
+    {{- end }}
+
+    {{- with .Values.loki.server }}
+    server:
+      {{- toYaml . | nindent 2}}
+    {{- end}}
+
+    {{- with .Values.loki.pattern_ingester }}
+    pattern_ingester:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    memberlist:
+    {{- if .Values.loki.memberlistConfig }}
+      {{- toYaml .Values.loki.memberlistConfig | nindent 2 }}
+    {{- else }}
+    {{- if .Values.loki.extraMemberlistConfig}}
+    {{- toYaml .Values.loki.extraMemberlistConfig | nindent 2}}
+    {{- end }}
+      join_members:
+        - {{ include "loki.memberlist" . }}.{{ include "loki.namespace" $ }}.svc.{{ .Values.global.clusterDomain }}
+        {{- with .Values.migrate.fromDistributed }}
+        {{- if .enabled }}
+        - {{ .memberlistService }}
+        {{- end }}
+        {{- end }}
+    {{- end }}
+
+    {{- with .Values.loki.ingester }}
+    ingester:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.ingester_client }}
+    ingester_client:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.block_builder }}
+    block_builder:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- if .Values.loki.commonConfig}}
+    common:
+    {{- toYaml .Values.loki.commonConfig | nindent 2}}
+      storage:
+      {{- include "loki.commonStorageConfig" . | nindent 4}}
+    {{- end}}
+
+    {{- with .Values.loki.limits_config }}
+    limits_config:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    runtime_config:
+      file: /etc/loki/runtime-config/runtime-config.yaml
+
+    {{- if .Values.chunksCache.enabled }}
+    {{- with .Values.chunksCache }}
+    chunk_store_config:
+      chunk_cache_config:
+        default_validity: {{ .defaultValidity }}
+        background:
+          writeback_goroutines: {{ .writebackParallelism }}
+          writeback_buffer: {{ .writebackBuffer }}
+          writeback_size_limit: {{ .writebackSizeLimit }}
+        memcached:
+          batch_size: {{ .batchSize }}
+          parallelism: {{ .parallelism }}
+        memcached_client:
+          addresses: {{ .addresses }}
+          consistent_hash: true
+          timeout: {{ .timeout }}
+          max_idle_conns: 72
+      {{- end }}
+      {{- with .Values.chunksCache.l2 }}
+      {{- if .enabled }}
+      l2_chunk_cache_handoff: {{ .l2ChunkCacheHandoff }}
+      chunk_cache_config_l2:
+        default_validity: {{ .defaultValidity }}
+        background:
+          writeback_goroutines: {{ .writebackParallelism }}
+          writeback_buffer: {{ .writebackBuffer }}
+          writeback_size_limit: {{ .writebackSizeLimit }}
+        memcached:
+          batch_size: {{ .batchSize }}
+          parallelism: {{ .parallelism }}
+        memcached_client:
+          addresses: {{ .addresses }}
+          consistent_hash: true
+          timeout: {{ .timeout }}
+          max_idle_conns: 72
+      {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if .Values.loki.schemaConfig }}
+    schema_config:
+    {{- toYaml .Values.loki.schemaConfig | nindent 2}}
+    {{- end }}
+
+    {{- if .Values.loki.useTestSchema }}
+    schema_config:
+    {{- toYaml .Values.loki.testSchemaConfig | nindent 2}}
+    {{- end }}
+
+    {{- if .Values.ruler.enabled }}
+    {{ include "loki.rulerConfig" . }}
+    {{- end }}
+
+    {{- if and .Values.loki.storage.use_thanos_objstore .Values.ruler.enabled}}
+    ruler_storage:
+      {{- include "loki.rulerThanosStorageConfig" . | nindent 2 }}
+    {{- end }}
+
+    {{- if or .Values.tableManager.retention_deletes_enabled .Values.tableManager.retention_period }}
+    table_manager:
+      retention_deletes_enabled: {{ .Values.tableManager.retention_deletes_enabled }}
+      retention_period: {{ .Values.tableManager.retention_period }}
+    {{- end }}
+
+    query_range:
+      align_queries_with_step: true
+      {{- with .Values.loki.query_range }}
+      {{- tpl (. | toYaml) $ | nindent 2 }}
+      {{- end }}
+      {{- if .Values.resultsCache.enabled }}
+      {{- with .Values.resultsCache }}
+      cache_results: true
+      results_cache:
+        cache:
+          default_validity: {{ .defaultValidity }}
+          background:
+            writeback_goroutines: {{ .writebackParallelism }}
+            writeback_buffer: {{ .writebackBuffer }}
+            writeback_size_limit: {{ .writebackSizeLimit }}
+          memcached_client:
+            addresses: {{ .addresses }}
+            consistent_hash: true
+            timeout: {{ .timeout }}
+            update_interval: 1m
+      {{- end }}
+      {{- end }}
+
+    {{- with .Values.loki.storage_config }}
+    storage_config:
+        {{- if not (hasKey $.Values.loki.storage_config "use_thanos_objstore") }}
+        use_thanos_objstore: {{ $.Values.loki.storage.use_thanos_objstore }}
+        {{- end }}
+        {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.query_scheduler }}
+    query_scheduler:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.compactor }}
+    compactor:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.compactor_grpc_client }}
+    compactor_grpc_client:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.analytics }}
+    analytics:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- if .Values.loki.ui.enabled }}
+    ui:
+      enabled: true
+    {{- end }}
+    {{- with .Values.loki.querier }}
+    querier:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.index_gateway }}
+    index_gateway:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.frontend }}
+    frontend:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.frontend_worker }}
+    frontend_worker:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.distributor }}
+    distributor:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    tracing:
+      enabled: {{ .Values.loki.tracing.enabled }}
+
+    {{- with .Values.loki.bloom_build }}
+    bloom_build:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.bloom_gateway }}
+    bloom_gateway:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+
+    {{- with .Values.loki.operational_config }}
+    operational_config:
+      {{- tpl (. | toYaml) $ | nindent 4 }}
+    {{- end }}
+  configObjectName: '{{ include "loki.name" . }}'
+  configStorageType: ConfigMap
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+  distributor: {}
+  dnsConfig: {}
+  enableServiceLinks: true
+  extraMemberlistConfig: {}
+  frontend:
+    scheduler_address: '{{ include "loki.querySchedulerAddress" . }}'
+    tail_proxy_url: '{{ include "loki.querierAddress" . }}'
+  frontend_worker:
+    scheduler_address: '{{ include "loki.querySchedulerAddress" . }}'
+  generatedConfigObjectName: '{{ include "loki.name" . }}'
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: grafana/loki
+    tag: 3.5.7
+  index_gateway:
+    mode: simple
+  ingester: {}
+  ingester_client: {}
+  limits_config:
+    max_cache_freshness_per_query: 10m
+    query_timeout: 300s
+    reject_old_samples: true
+    reject_old_samples_max_age: 168h
+    split_queries_by_interval: 15m
+    volume_enabled: true
+  livenessProbe: {}
+  memberlistConfig: {}
+  operational_config: {}
+  pattern_ingester:
+    enabled: false
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext:
+    fsGroup: 10001
+    runAsGroup: 10001
+    runAsNonRoot: true
+    runAsUser: 10001
+  querier: {}
+  query_range: {}
+  query_scheduler: {}
+  readinessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /ready
+      port: http-metrics
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  revisionHistoryLimit: 10
+  rulerConfig:
+    wal:
+      dir: /var/loki/ruler-wal
+  runtimeConfig: {}
+  schemaConfig:
+    configs:
+    - from: "2024-04-01"
+      index:
+        period: 24h
+        prefix: index_
+      object_store: s3
+      schema: v13
+      store: tsdb
+  server:
+    grpc_listen_port: 9095
+    http_listen_port: 3100
+    http_server_read_timeout: 600s
+    http_server_write_timeout: 600s
+  serviceAnnotations: {}
+  serviceLabels: {}
+  startupProbe: {}
+  storage:
+    azure:
+      accountKey: null
+      accountName: null
+      chunkDelimiter: null
+      connectionString: null
+      endpointSuffix: null
+      requestTimeout: null
+      useFederatedToken: false
+      useManagedIdentity: false
+      userAssignedId: null
+    bucketNames:
+      admin: admin
+      chunks: chunks
+      ruler: ruler
+    filesystem:
+      chunks_directory: /var/loki/chunks
+      rules_directory: /var/loki/rules
+    gcs:
+      chunkBufferSize: 0
+      enableHttp2: true
+      requestTimeout: 0s
+    object_store:
+      azure:
+        account_key: null
+        account_name: null
+      gcs:
+        bucket_name: null
+        service_account: null
+      s3:
+        access_key_id: null
+        endpoint: null
+        http: {}
+        insecure: false
+        region: null
+        secret_access_key: null
+        sse: {}
+      storage_prefix: null
+      type: s3
+    s3:
+      accessKeyId: logs-user
+      endpoint: http://loki-minio.loki.svc:9000
+      insecure: true
+      region: local
+      s3ForcePathStyle: true
+      secretAccessKey: supersecretpassword
+    swift:
+      auth_url: null
+      auth_version: null
+      connect_timeout: null
+      container_name: null
+      domain_id: null
+      domain_name: null
+      internal: null
+      max_retries: null
+      password: null
+      project_domain_id: null
+      project_domain_name: null
+      project_id: null
+      project_name: null
+      region_name: null
+      request_timeout: null
+      user_domain_id: null
+      user_domain_name: null
+      user_id: null
+      username: null
+    type: s3
+    use_thanos_objstore: false
+  storage_config:
+    bloom_shipper:
+      working_directory: /var/loki/data/bloomshipper
+    boltdb_shipper:
+      index_gateway_client:
+        server_address: '{{ include "loki.indexGatewayAddress" . }}'
+    hedging:
+      at: 250ms
+      max_per_second: 20
+      up_to: 3
+    tsdb_shipper:
+      index_gateway_client:
+        server_address: '{{ include "loki.indexGatewayAddress" . }}'
+  structuredConfig: {}
+  tenants: []
+  testSchemaConfig:
+    configs:
+    - from: "2024-04-01"
+      index:
+        period: 24h
+        prefix: index_
+      object_store: '{{ include "loki.testSchemaObjectStore" . }}'
+      schema: v13
+      store: tsdb
+  tracing:
+    enabled: false
+  ui:
+    enabled: true
+    gateway:
+      enabled: true
+  useTestSchema: false
+lokiCanary:
+  affinity: {}
+  annotations: {}
+  dnsConfig: {}
+  enabled: true
+  extraArgs: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: grafana/loki-canary
+    tag: null
+  kind: DaemonSet
+  labelname: pod
+  lokiurl: null
+  nodeSelector: {}
+  podLabels: {}
+  priorityClassName: null
+  push: true
+  readinessProbe:
+    httpGet:
+      path: /metrics
+      port: http-metrics
+    initialDelaySeconds: 15
+    timeoutSeconds: 1
+  replicas: 1
+  resources: {}
+  service:
+    annotations: {}
+    labels: {}
+  tolerations: []
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+memberlist:
+  service:
+    annotations: {}
+    publishNotReadyAddresses: false
+memcached:
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+  enabled: true
+  image:
+    pullPolicy: IfNotPresent
+    repository: memcached
+    tag: 1.6.39-alpine
+  livenessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    tcpSocket:
+      port: client
+    timeoutSeconds: 5
+  podSecurityContext:
+    fsGroup: 11211
+    runAsGroup: 11211
+    runAsNonRoot: true
+    runAsUser: 11211
+  priorityClassName: null
+  readinessProbe:
+    failureThreshold: 6
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    tcpSocket:
+      port: client
+    timeoutSeconds: 3
+  startupProbe: {}
+memcachedExporter:
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+  enabled: true
+  extraArgs: {}
+  image:
+    pullPolicy: IfNotPresent
+    repository: prom/memcached-exporter
+    tag: v0.15.3
+  livenessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /metrics
+      port: http-metrics
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+  readinessProbe:
+    failureThreshold: 3
+    httpGet:
+      path: /metrics
+      port: http-metrics
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+  resources:
+    limits: {}
+    requests: {}
+  startupProbe: {}
+migrate:
+  fromDistributed:
+    enabled: false
+    memberlistService: ""
+minio:
+  address: null
+  buckets:
+  - name: chunks
+    policy: none
+    purge: false
+  - name: ruler
+    policy: none
+    purge: false
+  - name: admin
+    policy: none
+    purge: false
+  drivesPerNode: 2
+  enabled: true
+  persistence:
+    annotations: {}
+    size: 5Gi
+    storageClass: ceph-block
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  rootPassword: supersecretpassword
+  rootUser: root-user
+  users:
+  - accessKey: logs-user
+    policy: readwrite
+    secretKey: supersecretpassword
+monitoring:
+  dashboards:
+    annotations: {}
+    enabled: false
+    labels:
+      grafana_dashboard: "1"
+    namespace: null
+  rules:
+    additionalGroups: []
+    additionalRuleAnnotations: {}
+    additionalRuleLabels: {}
+    alerting: true
+    annotations: {}
+    configs:
+      LokiCanaryLatency:
+        enabled: true
+        for: 15m
+        lookbackPeriod: 5m
+        severity: warning
+        threshold: 5
+      LokiRequestErrors:
+        enabled: true
+        for: 15m
+        lookbackPeriod: 2m
+        severity: critical
+        threshold: 10
+      LokiRequestLatency:
+        enabled: true
+        for: 15m
+        severity: critical
+        threshold: 1
+      LokiRequestPanics:
+        enabled: true
+        lookbackPeriod: 10m
+        severity: critical
+        threshold: 0
+      LokiTooManyCompactorsRunning:
+        enabled: true
+        for: 5m
+        severity: warning
+    disabled: {}
+    enabled: false
+    labels: {}
+    namespace: null
+  selfMonitoring:
+    enabled: false
+    grafanaAgent:
+      annotations: {}
+      enableConfigReadAPI: false
+      installOperator: false
+      labels: {}
+      priorityClassName: null
+      resources: {}
+      tolerations: []
+    logsInstance:
+      annotations: {}
+      clients: null
+      labels: {}
+    podLogs:
+      additionalPipelineStages: []
+      annotations: {}
+      apiVersion: monitoring.grafana.com/v1alpha1
+      labels: {}
+      relabelings: []
+    tenant:
+      name: self-monitoring
+      password: null
+      secretNamespace: '{{ include "loki.namespace" . }}'
+  serviceMonitor:
+    annotations: {}
+    enabled: false
+    interval: 15s
+    labels: {}
+    metricRelabelings: []
+    metricsInstance:
+      annotations: {}
+      enabled: true
+      labels: {}
+      remoteWrite: null
+    namespaceSelector: {}
+    relabelings: []
+    scheme: http
+    scrapeTimeout: null
+    tlsConfig: null
+nameOverride: null
+namespaceOverride: null
+networkPolicy:
+  alertmanager:
+    namespaceSelector: {}
+    podSelector: {}
+    port: 9093
+  discovery:
+    namespaceSelector: {}
+    podSelector: {}
+    port: null
+  egressKubeApiserver:
+    enabled: false
+  egressWorld:
+    enabled: false
+  enabled: false
+  externalStorage:
+    cidrs: []
+    ports: []
+  flavor: kubernetes
+  ingress:
+    namespaceSelector: {}
+    podSelector: {}
+  metrics:
+    cidrs: []
+    namespaceSelector: {}
+    podSelector: {}
+overridesExporter:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: overrides-exporter
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  command: null
+  dnsConfig: {}
+  enabled: false
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  maxUnavailable: null
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  serviceAnnotations: {}
+  serviceLabels: {}
+  terminationGracePeriodSeconds: 300
+  tolerations: []
+  topologySpreadConstraints: []
+patternIngester:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: pattern-ingester
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  command: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  livenessProbe: {}
+  maxUnavailable: null
+  nodeSelector: {}
+  persistence:
+    claims:
+    - accessModes:
+      - ReadWriteOnce
+      annotations: {}
+      labels: {}
+      name: data
+      size: 10Gi
+      storageClass: null
+    enableStatefulSetAutoDeletePVC: false
+    enabled: false
+    size: 10Gi
+    storageClass: null
+    whenDeleted: Retain
+    whenScaled: Retain
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  readinessProbe: {}
+  replicas: 0
+  resources: {}
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: false
+    imagePullSecrets: []
+    name: null
+  serviceAnnotations: {}
+  serviceLabels: {}
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+  topologySpreadConstraints: []
+querier:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: querier
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  autoscaling:
+    behavior:
+      enabled: false
+      scaleDown: {}
+      scaleUp: {}
+    customMetrics: []
+    enabled: false
+    maxReplicas: 3
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  command: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  maxSurge: 0
+  maxUnavailable: null
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  serviceAnnotations: {}
+  serviceLabels: {}
+  serviceType: ClusterIP
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+  topologySpreadConstraints:
+  - labelSelector:
+      matchLabels:
+        app.kubernetes.io/component: querier
+        app.kubernetes.io/instance: '{{ .Release.Name }}'
+        app.kubernetes.io/name: '{{ include "loki.name" . }}'
+    maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: ScheduleAnyway
+queryFrontend:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: query-frontend
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  autoscaling:
+    behavior:
+      enabled: false
+      scaleDown: {}
+      scaleUp: {}
+    customMetrics: []
+    enabled: false
+    maxReplicas: 3
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  command: null
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  loadBalancer:
+    enabled: true
+  maxUnavailable: null
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  serviceAnnotations: {}
+  serviceLabels: {}
+  serviceType: ClusterIP
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+  topologySpreadConstraints: []
+queryScheduler:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: query-scheduler
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  maxUnavailable: 1
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  serviceAnnotations: {}
+  serviceLabels: {}
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+  topologySpreadConstraints: []
+rbac:
+  namespaced: false
+  pspAnnotations: {}
+  pspEnabled: false
+  sccAllowHostDirVolumePlugin: false
+  sccEnabled: false
+read:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: read
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  annotations: {}
+  autoscaling:
+    behavior: {}
+    enabled: false
+    maxReplicas: 6
+    minReplicas: 2
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  legacyReadTarget: false
+  lifecycle: {}
+  livenessProbe: {}
+  nodeSelector: {}
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enableStatefulSetAutoDeletePVC: true
+    labels: {}
+    selector: null
+    size: 10Gi
+    storageClass: null
+  podAnnotations: {}
+  podLabels: {}
+  podManagementPolicy: Parallel
+  priorityClassName: null
+  replicas: 3
+  resources: {}
+  selectorLabels: {}
+  service:
+    annotations: {}
+    labels: {}
+    type: ClusterIP
+  targetModule: read
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+  topologySpreadConstraints: []
+resultsCache:
+  addresses: dnssrvnoa+_memcached-client._tcp.{{ include "loki.resourceName" (dict
+    "ctx" $ "component" "results-cache") }}.{{ include "loki.namespace" $ }}.svc.{{
+    .Values.global.clusterDomain }}
+  affinity: {}
+  allocatedMemory: 1024
+  annotations: {}
+  connectionLimit: 16384
+  defaultValidity: 12h
+  dnsConfig: {}
+  enabled: true
+  extraArgs: {}
+  extraContainers: []
+  extraExtendedOptions: ""
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  initContainers: []
+  maxItemMemory: 5
+  maxUnavailable: 1
+  nodeSelector: {}
+  persistence:
+    enabled: false
+    labels: {}
+    mountPath: /data
+    storageClass: null
+    storageSize: 10G
+  podAnnotations: {}
+  podLabels: {}
+  podManagementPolicy: Parallel
+  port: 11211
+  priorityClassName: null
+  replicas: 1
+  resources: null
+  service:
+    annotations: {}
+    labels: {}
+  statefulStrategy:
+    type: RollingUpdate
+  terminationGracePeriodSeconds: 60
+  timeout: 500ms
+  tolerations: []
+  topologySpreadConstraints: []
+  writebackBuffer: 500000
+  writebackParallelism: 1
+  writebackSizeLimit: 500MB
+rollout_operator:
+  enabled: false
+  podSecurityContext:
+    fsGroup: 10001
+    runAsGroup: 10001
+    runAsNonRoot: true
+    runAsUser: 10001
+    seccompProfile:
+      type: RuntimeDefault
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+ruler:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: ruler
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  appProtocol:
+    grpc: ""
+  command: null
+  directories: {}
+  dnsConfig: {}
+  enabled: true
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostAliases: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  maxUnavailable: null
+  nodeSelector: {}
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enabled: false
+    labels: {}
+    size: 10Gi
+    storageClass: null
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  serviceAnnotations: {}
+  serviceLabels: {}
+  sidecar: false
+  terminationGracePeriodSeconds: 300
+  tolerations: []
+  topologySpreadConstraints: []
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: true
+  create: true
+  imagePullSecrets: []
+  labels: {}
+  name: null
+sidecar:
+  enableUniqueFilenames: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: docker.io/kiwigrid/k8s-sidecar
+    sha: ""
+    tag: 1.30.10
+  livenessProbe: {}
+  readinessProbe: {}
+  resources: {}
+  rules:
+    enabled: true
+    folder: /rules
+    folderAnnotation: null
+    label: loki_rule
+    labelValue: ""
+    logLevel: INFO
+    resource: both
+    script: null
+    searchNamespace: null
+    watchClientTimeout: 60
+    watchMethod: WATCH
+    watchServerTimeout: 60
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+  skipTlsVerify: false
+  startupProbe: {}
+singleBinary:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: single-binary
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  annotations: {}
+  autoscaling:
+    enabled: false
+    maxReplicas: 3
+    minReplicas: 1
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  nodeSelector: {}
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enableStatefulSetAutoDeletePVC: true
+    enableStatefulSetRecreationForSizeChange: false
+    enabled: true
+    labels: {}
+    selector: null
+    size: 10Gi
+    storageClass: ceph-block
+    whenDeleted: Delete
+    whenScaled: Delete
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  replicas: 0
+  resources: {}
+  selectorLabels: {}
+  service:
+    annotations: {}
+    labels: {}
+    type: ClusterIP
+  targetModule: all
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+  topologySpreadConstraints: []
+tableManager:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: table-manager
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  annotations: {}
+  command: null
+  dnsConfig: {}
+  enabled: false
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: null
+  resources: {}
+  retention_deletes_enabled: false
+  retention_period: 0
+  service:
+    annotations: {}
+    labels: {}
+  terminationGracePeriodSeconds: 30
+  tolerations: []
+test:
+  annotations: {}
+  canaryServiceAddress: http://{{ include "loki-canary.fullname" $ }}.{{ include "loki.namespace"
+    $ }}.svc.{{ .Values.global.clusterDomain }}:3500/metrics
+  enabled: true
+  hostUsers: nil
+  image:
+    digest: null
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: grafana/loki-helm-test
+    tag: latest
+  labels: {}
+  prometheusAddress: ""
+  timeout: 1m
+write:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/component: write
+            app.kubernetes.io/instance: '{{ .Release.Name }}'
+            app.kubernetes.io/name: '{{ include "loki.name" . }}'
+        topologyKey: kubernetes.io/hostname
+  annotations: {}
+  autoscaling:
+    behavior:
+      scaleDown:
+        policies:
+        - periodSeconds: 1800
+          type: Pods
+          value: 1
+        stabilizationWindowSeconds: 3600
+      scaleUp:
+        policies:
+        - periodSeconds: 900
+          type: Pods
+          value: 1
+    enabled: false
+    maxReplicas: 6
+    minReplicas: 2
+    targetCPUUtilizationPercentage: 60
+    targetMemoryUtilizationPercentage: null
+  dnsConfig: {}
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeClaimTemplates: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: nil
+  image:
+    registry: null
+    repository: null
+    tag: null
+  initContainers: []
+  lifecycle: {}
+  nodeSelector: {}
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    dataVolumeParameters:
+      emptyDir: {}
+    enableStatefulSetAutoDeletePVC: false
+    labels: {}
+    selector: null
+    size: 10Gi
+    storageClass: null
+    volumeClaimsEnabled: true
+  podAnnotations: {}
+  podLabels: {}
+  podManagementPolicy: Parallel
+  priorityClassName: null
+  replicas: 3
+  resources: {}
+  selectorLabels: {}
+  service:
+    annotations: {}
+    labels: {}
+    type: ClusterIP
+  targetModule: write
+  terminationGracePeriodSeconds: 300
+  tolerations: []
+  topologySpreadConstraints: []
