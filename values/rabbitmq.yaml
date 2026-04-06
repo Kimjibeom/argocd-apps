@@ -13,10 +13,6 @@ persistence:
   accessModes:
     - ReadWriteOnce
 
-image:
-  registry: registry-1.docker.io
-  repository: bitnami/rabbitmq
-
 # 3. 외부 접속 설정 (Traefik Ingress - Management UI)
 ingress:
   enabled: true
