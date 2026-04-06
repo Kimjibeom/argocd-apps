@@ -1,1 +1,7 @@
 replicas: 3
+volumeClaimTemplate:
+  storageClassName: "ceph-block"
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 30Gi

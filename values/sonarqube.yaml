@@ -1,3 +1,10 @@
 replicaCount: 1
+persistence:
+  storageClass: "ceph-block"
 postgresql:
   enabled: true
+  primary:
+    persistence:
+      storageClass: "ceph-block"
+  persistence:
+    storageClass: "ceph-block"
