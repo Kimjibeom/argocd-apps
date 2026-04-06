@@ -8,7 +8,7 @@ auth:
 # 2. 데이터 저장소 (Rook-Ceph 연결)
 persistence:
   enabled: true
-  storageClass: "ceph-block"
+  storageClass: "local-path"
   size: 8Gi
   accessModes:
     - ReadWriteOnce

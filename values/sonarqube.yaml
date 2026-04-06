@@ -32,7 +32,7 @@ initSysctl:
 
 persistence:
   enabled: true
-  storageClass: "ceph-block"
+  storageClass: "local-path"
   accessMode: ReadWriteOnce
   size: 10Gi
 
@@ -47,7 +47,7 @@ postgresql:
 
   persistence:
     enabled: true
-    storageClass: "ceph-block"
+    storageClass: "local-path"
     accessMode: ReadWriteOnce
     size: 20Gi
 
