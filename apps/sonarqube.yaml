@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://SonarSource.github.io/helm-chart-sonarqube
       chart: sonarqube
-      targetRevision: 10.5.1
+      targetRevision: 2025.5.0
       helm:
         valueFiles:
           - $values/values/sonarqube.yaml

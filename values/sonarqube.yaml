@@ -1,10 +1,68 @@
+# sonarqube-values.yaml
+
+monitoringPasscode: "define_it"
+
+community:
+  enabled: true
+  buildNumber: "25.9.0.112764"
+
+deploymentType: "StatefulSet"
 replicaCount: 1
+
+image:
+  repository: sonarqube
+  tag: "10.4.1-community"
+  pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  hosts:
+    - name: sonarqube.ssg.com
+      path: /
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+
+initSysctl:
+  enabled: true
+  vmMaxMapCount: 262144
+  fsFileMax: 65536
+  nofile: 65536
+  nproc: 4096
+
 persistence:
+  enabled: true
   storageClass: "local-path"
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
 postgresql:
   enabled: true
-  primary:
-    persistence:
-      storageClass: "local-path"
+  postgresqlUsername: "sonarUser"
+  postgresqlPassword: "sonarPass"
+  postgresqlDatabase: "sonarDB"
+
   persistence:
+    enabled: true
     storageClass: "local-path"
+    accessMode: ReadWriteOnce
+    size: 20Gi
+
+  resources:
+    limits:
+      cpu: 1
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 512Mi
+
+resources:
+  limits:
+    cpu: 2
+    memory: 4Gi
+  requests:
+    cpu: 500m
+    memory: 2Gi
+
+plugins:
+  install: []
