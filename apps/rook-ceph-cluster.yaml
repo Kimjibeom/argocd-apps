@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-ceph-cluster
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: rook-ceph
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+  - chart: rook-ceph-cluster
+    helm:
+      valueFiles:
+      - $values/values/rook-ceph-cluster.yaml
+    repoURL: https://charts.rook.io/release
+    targetRevision: v1.18.9
+  - ref: values
+    repoURL: https://github.com/Kimjibeom/argocd-apps.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
