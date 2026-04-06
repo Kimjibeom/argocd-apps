@@ -41,6 +41,9 @@ postgresql:
   postgresqlUsername: "sonarUser"
   postgresqlPassword: "sonarPass"
   postgresqlDatabase: "sonarDB"
+  image:
+    registry: registry-1.docker.io
+    repository: bitnami/postgresql
 
   persistence:
     enabled: true
