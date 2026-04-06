@@ -1,3 +1,40 @@
-replicaCount: 1
+# 1. 관리자 계정 설정 (필수)
+auth:
+  enabled: true
+  username: "admin"
+  password: "rabbitmq_password"
+  erlangCookie: "secret_erlang_cookie_string"
+
+# 2. 데이터 저장소 (Rook-Ceph 연결)
 persistence:
-  storageClass: "local-path"
+  enabled: true
+  storageClass: "ceph-block"
+  size: 8Gi
+  accessModes:
+    - ReadWriteOnce
+
+# 3. 외부 접속 설정 (Traefik Ingress - Management UI)
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  hosts:
+    - host: rabbitmq.ssg.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+# 4. 리소스 제한 (권장)
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 100m
+    memory: 512Mi
+
+# 5. 서비스 설정
+service:
+  type: ClusterIP

@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://charts.bitnami.com/bitnami
+    - repoURL: registry-1.docker.io/cloudpirates
       chart: rabbitmq
-      targetRevision: 14.6.8
+      targetRevision: 0.7.9
       helm:
         valueFiles:
           - $values/values/rabbitmq.yaml
