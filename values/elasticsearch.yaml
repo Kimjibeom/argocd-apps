@@ -1,6 +1,6 @@
 replicas: 3
 volumeClaimTemplate:
-  storageClassName: "ceph-block"
+  storageClassName: "local-path"
   accessModes: [ "ReadWriteOnce" ]
   resources:
     requests:
