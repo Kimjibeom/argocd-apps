@@ -1077,6 +1077,7 @@ traefik:
       exposedPort: 22
       port: 2222
 upgradeCheck:
+  enabled: false
   annotations: {}
   configMapAnnotations: {}
   containerSecurityContext:

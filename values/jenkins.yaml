@@ -205,7 +205,7 @@ controller:
   - kubernetes:4392.v19cea_fdb_5913
   - workflow-aggregator:608.v67378e9d3db_1
   - git:5.8.0
-  - configuration-as-code:2006.v001a_2ca_6b_574
+  - configuration-as-code:2036.v0b_c2de701dcb_
   javaOpts: null
   jenkinsAdminEmail: null
   jenkinsHome: /var/jenkins_home
