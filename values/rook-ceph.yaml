@@ -20,7 +20,7 @@ crds:
 csi:
   attacher:
     repository: registry.k8s.io/sig-storage/csi-attacher
-    tag: v4.8.1
+    tag: v4.11.0
   cephFSAttachRequired: true
   cephFSFSGroupPolicy: File
   cephFSKernelMountOptions: null
@@ -28,7 +28,7 @@ csi:
   cephFSPluginUpdateStrategyMaxUnavailable: null
   cephcsi:
     repository: quay.io/cephcsi/cephcsi
-    tag: v3.15.0
+    tag: v3.16.2
   cephfsLivenessMetricsPort: null
   cephfsPodLabels: null
   clusterName: null
@@ -37,7 +37,7 @@ csi:
   csiAddons:
     enabled: false
     repository: quay.io/csiaddons/k8s-sidecar
-    tag: v0.13.0
+    tag: v0.14.0
   csiAddonsCephFSProvisionerPort: null
   csiAddonsPort: null
   csiAddonsRBDProvisionerPort: null
@@ -253,7 +253,7 @@ csi:
   pluginTolerations: null
   provisioner:
     repository: registry.k8s.io/sig-storage/csi-provisioner
-    tag: v5.2.0
+    tag: v6.1.1
   provisionerNodeAffinity: null
   provisionerPriorityClassName: system-cluster-critical
   provisionerReplicas: 2
@@ -266,10 +266,10 @@ csi:
   rbdPodLabels: null
   registrar:
     repository: registry.k8s.io/sig-storage/csi-node-driver-registrar
-    tag: v2.13.0
+    tag: v2.16.0
   resizer:
     repository: registry.k8s.io/sig-storage/csi-resizer
-    tag: v1.13.2
+    tag: v2.1.0
   rookUseCsiOperator: false
   serviceMonitor:
     enabled: false
@@ -279,7 +279,7 @@ csi:
   sidecarLogLevel: null
   snapshotter:
     repository: registry.k8s.io/sig-storage/csi-snapshotter
-    tag: v8.2.1
+    tag: v8.5.0
   topology:
     domainLabels: null
     enabled: false
@@ -302,20 +302,20 @@ hostpathRequiresPrivileged: false
 image:
   pullPolicy: IfNotPresent
   repository: docker.io/rook/ceph
-  tag: v1.18.8
+  tag: v1.19.3
 imagePullSecrets: null
 logLevel: INFO
 monitoring:
-  enabled: true
+  enabled: false
 nodeSelector: {}
 obcAllowAdditionalConfigFields: maxObjects,maxSize
 obcProvisionerNamePrefix: null
 operatorPodLabels: {}
 priorityClassName: null
-pspEnable: false
 rbacAggregate:
   enableOBCs: false
 rbacEnable: true
+reconcileConcurrentClusters: 1
 resources:
   limits:
     memory: 1Gi
