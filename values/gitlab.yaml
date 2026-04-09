@@ -1,5 +1,4 @@
-upgradeCheck:
-  enabled: false
+
 certmanager:
   installCRDs: false
   nameOverride: certmanager
@@ -1089,7 +1088,7 @@ upgradeCheck:
       - ALL
     runAsNonRoot: true
     runAsUser: 65534
-  enabled: true
+  enabled: false
   image: {}
   priorityClassName: ""
   resources:
