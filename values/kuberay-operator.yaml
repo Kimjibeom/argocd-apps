@@ -11,7 +11,7 @@ image:
   pullPolicy: IfNotPresent
   repository: quay.io/kuberay/operator
   tag: v1.2.2
-leaderElectionEnabled: true
+leaderElectionEnabled: false
 livenessProbe:
   failureThreshold: 5
   initialDelaySeconds: 10
