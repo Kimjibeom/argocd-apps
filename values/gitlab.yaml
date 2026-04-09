@@ -1,3 +1,5 @@
+upgradeCheck:
+  enabled: false
 certmanager:
   installCRDs: false
   nameOverride: certmanager
