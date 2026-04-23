@@ -21,8 +21,8 @@ spec:
     repoURL: https://github.com/Kimjibeom/argocd-apps.git
     targetRevision: HEAD
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+#    automated:
+#      prune: true
+#      selfHeal: true
     syncOptions:
     - CreateNamespace=true
