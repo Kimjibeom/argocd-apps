@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   sources:
-  - repoURL: https://cagataygurturk.github.io/helm-microservices/
+  - repoURL: https://community-charts.github.io/helm-charts
     chart: n8n
-    targetRevision: 1.16.29
+    targetRevision: 1.16.37
     helm:
       valueFiles:
       - $values/values/n8n.yaml
