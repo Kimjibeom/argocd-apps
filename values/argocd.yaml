@@ -12,7 +12,7 @@ controller:
       cpu: 500m
       memory: 1Gi
 global:
-  domain: argocd.gpu.com
+  domain: argocd.dev.com
 redis:
   enabled: true
   resources:
@@ -40,7 +40,7 @@ server:
       traefik.ingress.kubernetes.io/service.serversscheme: http
     enabled: true
     hosts:
-    - argocd.gpu.com
+    - argocd.dev.com
     ingressClassName: traefik
     pathType: Prefix
     paths:

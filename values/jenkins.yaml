@@ -186,7 +186,7 @@ controller:
       traefik.ingress.kubernetes.io/router.entrypoints: web
     apiVersion: extensions/v1beta1
     enabled: true
-    hostName: jenkins.gpu.com
+    hostName: jenkins.dev.com
     ingressClassName: traefik
     labels: {}
     path: /
@@ -212,7 +212,7 @@ controller:
   jenkinsOpts: null
   jenkinsRef: /usr/share/jenkins/ref
   jenkinsUriPrefix: null
-  jenkinsUrl: http://jenkins.gpu.com
+  jenkinsUrl: http://jenkins.dev.com
   jenkinsUrlProtocol: null
   jenkinsWar: /usr/share/jenkins/jenkins.war
   jmxPort: null
@@ -378,8 +378,8 @@ persistence:
   existingClaim: null
   labels: {}
   mounts: []
-  size: 20Gi
-  storageClass: ceph-block
+  size: 10Gi
+  storageClass: nfs-client
   subPath: null
   volumes: []
 rbac:

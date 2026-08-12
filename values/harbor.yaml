@@ -8,7 +8,7 @@ expose:
     certSource: auto  # Harbor 내부용 인증서 자동 생성
   ingress:
     hosts:
-      core: harbor.ssg.local  # [수정] 접속할 도메인
+      core: harbor.dev.com  # [수정] 접속할 도메인
     className: "traefik"      # [수정] Traefik Ingress Class 지정
     annotations:
       # Traefik HTTPS 라우팅 및 업로드 용량 제한 해제
@@ -19,33 +19,33 @@ expose:
 
 # 2. 외부 접속 URL (필수)
 # 위 Ingress host와 프로토콜(https)을 맞춰야 합니다.
-externalURL: https://harbor.ssg.local
+externalURL: https://harbor.dev.com
 
-# 3. 데이터 저장소 설정 (Rook-Ceph Block Storage 연결)
+# 3. 데이터 저장소 설정
 persistence:
   enabled: true
   resourcePolicy: "keep"
   persistentVolumeClaim:
     registry:
-      storageClass: "ceph-block"   # [수정] Rook-Ceph Block Class
+      storageClass: "nfs-client"
       accessMode: ReadWriteOnce
-      size: 50Gi                   # 이미지 저장 공간 (필요시 증설)
+      size: 20Gi
     jobservice:
-      storageClass: "ceph-block"
+      storageClass: "nfs-client"
       accessMode: ReadWriteOnce
-      size: 10Gi
+      size: 1Gi
     database:
-      storageClass: "ceph-block"
+      storageClass: "nfs-client"
       accessMode: ReadWriteOnce
-      size: 10Gi
+      size: 2Gi
     redis:
-      storageClass: "ceph-block"
+      storageClass: "nfs-client"
       accessMode: ReadWriteOnce
-      size: 10Gi
+      size: 1Gi
     trivy:
-      storageClass: "ceph-block"
+      storageClass: "nfs-client"
       accessMode: ReadWriteOnce
-      size: 10Gi
+      size: 5Gi
 
 # 4. 관리자 비밀번호 설정
 harborAdminPassword: "Harbor12345"
