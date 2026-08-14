@@ -85,7 +85,6 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"  # [핵심] 이것만 있으면 HTTPS 됨
-    traefik.ingress.kubernetes.io/router.middlewares: "default-stripprefix@kubernetescrd"
   # -- (string) Ingress class name.
   ingressClassName: traefik
   # -- (list) Ingress hosts, do not include hosts defined in `service.additionalPorts`.
